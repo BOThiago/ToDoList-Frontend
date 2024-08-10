@@ -1,0 +1,25 @@
+<div class="py-5">
+  <p class="primary text-center ts-6">
+    Qual formato gostaria de exportar o relatório?
+  </p>
+  <div class="d-flex gap-2 flex-column mx-5 justify-content-evenly py-3">
+    <div
+      (click)="export('pdf')"
+      class="btn bg-primary surface-color rounded-3 px-5 py-2"
+    >
+      <div class="ts-7">.pdf</div>
+    </div>
+    <div
+      (click)="export('xls')"
+      class="btn bg-primary surface-color rounded-3 px-5 py-2"
+    >
+      <div class="ts-7">.xls</div>
+    </div>
+    <div
+      (click)="export('csv')"
+      class="btn bg-primary surface-color rounded-3 px-5 py-2"
+    >
+      <div class="ts-7">.csv</div>
+    </div>
+  </div>
+</div>

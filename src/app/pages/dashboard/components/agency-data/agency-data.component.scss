@@ -1,0 +1,41 @@
+.carousel-container {
+  max-width: 100%;
+  overflow: hidden;
+}
+.ratio-1 {
+  aspect-ratio: 1;
+}
+@media (min-width: 992px) {
+  .w-lg-11 {
+      width: 11.2% !important;
+  }
+}
+
+.card-content, .card-infos{
+  display: flex; 
+  flex-direction: column; 
+}
+.card-content{
+  align-items: center; 
+  padding-block: 8%; 
+  margin-top: 3%;
+}
+
+.card-content-top{
+  display: flex; 
+  flex-direction: row; 
+  align-items: center; 
+  justify-content: space-between; 
+  width: 45%; 
+  margin-bottom: 5%;
+}
+
+.icon{
+  max-width: 65px; 
+  max-height: 65px;
+}
+
+.button{
+  border-radius: 14px; 
+  height: 42px;
+}

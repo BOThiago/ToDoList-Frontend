@@ -1,0 +1,115 @@
+// Importação dos temas do Angular Material e Bootstrap
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+// Inclui todas as funções e mixins do Angular Material
+// $primary: mat-palette($mat-indigo, 700);
+// $primary: map-merge($primary, (500: #004F9F, 600: #004F9F, 700: #004F9F));
+// $secondary: mat-palette($mat-blue, 500);
+// $secondary: map-merge($secondary, (500: #0097D7, 600: #0097D7, 700: #0097D7));
+// $accent: mat-palette($mat-orange, 600);
+// $accent: map-merge($accent, (500: #F39200, 600: #F39200, 700: #F39200));
+
+// $custom-primary: mat-palette($mat-indigo, 700, 500, 300);
+// $custom-primary: map-merge($custom-primary, (
+//   500: #004F9F,
+//   600: #004F9F,
+//   700: #004F9F,
+// ));
+// $custom-accent: mat-palette($mat-orange, 600, 500, 300);
+// $custom-accent: map-merge($custom-accent, (
+//   500: #F39200,
+//   600: #F39200,
+//   700: #F39200,
+// ));
+
+// $custom-warn: mat-palette($mat-red);
+// $custom-theme: mat-light-theme(
+//   (
+//     color: (
+//       primary: $custom-primary,
+//       accent: $custom-accent,
+//       warn: $custom-warn,
+//     ),
+//     typography: mat-typography-config(),
+//     density: 0,
+//   )
+// );
+// @include mat.all-component-themes($custom-theme);
+
+/// Classes de definição de tema, não mexer
+$app-light-theme: (
+  primary: #68008b,
+  secondary: #7d00d7,
+  accent: #9700f3,
+  alternate: #232323,
+  gray-700: #666b7a,
+  gray-600: #6f778c,
+  gray-200: #b1b1b1,
+  gray-100: #d9d9d9,
+  gray-50: #dee7ff,
+  gradient: linear-gradient(180deg, #68008b 0%, #4d00d7 100%),
+  surface: #fff,
+  background: #f5f7fa,
+  in-queue-color: #8000ff,
+  called-color: #4a016f,
+  in-service-color: #00e4f3,
+  not-attend-color: #9700f3,
+  paused-color: #f30000,
+  graph-data-color: #718ebf,
+);
+
+$app-dark-theme: (
+  primary: #68008b,
+  secondary: #7d00d7,
+  accent: #9700f3,
+  alternate: #000000,
+  gray-700: #666b7a,
+  gray-600: #6f778c,
+  gray-200: #b1b1b1,
+  gray-100: #d9d9d9,
+  gray-50: #dee7ff,
+  gradient: linear-gradient(90deg, #68008b 0%, #4d00d7 100%),
+  surface: #fff,
+  background: #f5f7fa,
+);
+
+:root {
+  @each $key, $value in $app-light-theme {
+    --#{$key}: #{$value};
+  }
+}
+.dark-theme {
+  @each $key, $value in $app-dark-theme {
+    --#{$key}: #{$value};
+  }
+}
+.light-theme {
+  @each $key, $value in $app-light-theme {
+    --#{$key}: #{$value};
+  }
+}
+
+@each $name, $color in $app-light-theme {
+  @if ($name == "gradient") {
+    .#{$name} {
+      background: $color !important;
+    }
+  } @else if ($name != "surface" and $name != "background") {
+    .bg-#{$name} {
+      background-color: $color !important;
+    }
+    .#{$name} {
+      color: $color !important;
+    }
+  } @else {
+    .#{$name}-color {
+      color: $color !important;
+    }
+    .#{$name} {
+      background-color: $color !important;
+    }
+  }
+  .border-#{$name} {
+    border-color: $color !important;
+  }
+}

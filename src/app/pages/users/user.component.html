@@ -1,0 +1,50 @@
+<div class="my-2" [style.margin-left.rem]="2.5" [style.margin-right.rem]="2.5">
+  <app-basic-data-table
+    [columns]="displayedColumns"
+    [data]="data"
+    [choice]="newUser"
+  >
+    <div class="ts-4 mt-2">Usuários</div>
+    <div class="my-2 gap-5 d-flex align-items-stretch w-100">
+      <form
+        class="d-flex flex-column gap-2 w-100"
+        (ngSubmit)="createUser()"
+        #userForm="ngForm"
+        novalidate
+      >
+        <input
+          class="form-control"
+          [(ngModel)]="newUser.username"
+          placeholder="Username"
+          name="username"
+          required
+          #username="ngModel"
+        />
+        <div *ngIf="username.invalid && username.touched" class="text-danger">
+          Username é requirido.
+        </div>
+
+        <select
+          class="form-control"
+          [(ngModel)]="newUser.nivel"
+          name="nivel"
+          required
+          #nivel="ngModel"
+        >
+          <option value="admin" selected>Administrador</option>
+          <option value="user">Usuário</option>
+        </select>
+        <div *ngIf="nivel.invalid && nivel.touched" class="text-danger">
+          Nível é requirido.
+        </div>
+        <button
+          type="submit"
+          class="btn bg-white pointer primary border-1 border-primary primary rounded-pill px-3"
+          [disabled]="userForm.invalid"
+        >
+          Create User
+        </button>
+      </form>
+    </div>
+  </app-basic-data-table>
+</div>

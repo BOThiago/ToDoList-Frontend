@@ -1,0 +1,155 @@
+/*---- PADRÕES NOTIFICATION ------*/
+@mixin span-tostl {
+  font-weight: 600;
+  line-height: 19px;
+  color: white;
+}
+
+@mixin span-toastl-btn-close {
+  font-weight: bold;
+  line-height: 36px;
+  font-size: 20px;
+  color: rgb(34, 34, 34);
+}
+
+.notification-success,
+.notification-error,
+.notification-info {
+  border-radius: 5px;
+  & span {
+    @include span-tostl;
+  }
+  & span.mat-button-wrapper {
+    @include span-toastl-btn-close;
+  }
+}
+
+.notification-success {
+  background: #12751f;
+}
+.notification-error {
+  background: #a11010;
+}
+.notification-info {
+  background: #1060a1;
+}
+
+::ng-deep {
+  .cdk-visually-hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+    outline: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    left: 0;
+  }
+
+  [dir="rtl"] .cdk-visually-hidden {
+    left: auto;
+    right: 0;
+  }
+
+  .cdk-overlay-container,
+  .cdk-global-overlay-wrapper {
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  .cdk-overlay-container {
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .cdk-overlay-container:empty {
+    display: none;
+  }
+
+  .cdk-global-overlay-wrapper {
+    display: flex;
+    position: absolute;
+    z-index: 1000;
+  }
+
+  .cdk-overlay-pane {
+    position: absolute;
+    pointer-events: auto;
+    box-sizing: border-box;
+    z-index: 1000;
+    display: flex;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .cdk-overlay-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 1000;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0;
+  }
+
+  .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    opacity: 1;
+  }
+
+  .cdk-high-contrast-active .cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    opacity: 0.6;
+  }
+
+  .cdk-overlay-dark-backdrop {
+    background: #00000052;
+  }
+
+  .cdk-overlay-transparent-backdrop {
+    transition: visibility 1ms linear, opacity 1ms linear;
+    visibility: hidden;
+    opacity: 1;
+  }
+
+  .cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing {
+    opacity: 0;
+    visibility: visible;
+  }
+
+  .cdk-overlay-backdrop-noop-animation {
+    transition: none;
+  }
+
+  :root {
+    --mdc-dialog-container-color: #fdfbff;
+    --mdc-dialog-subhead-color: #1a1b1f;
+    --mdc-dialog-supporting-text-color: #44474e;
+    --mdc-dialog-subhead-font: Roboto, sans-serif;
+    --mdc-dialog-subhead-line-height: 2rem;
+    --mdc-dialog-subhead-size: 1.5rem;
+    --mdc-dialog-subhead-weight: 400;
+    --mdc-dialog-subhead-tracking: 0rem;
+    --mdc-dialog-supporting-text-font: Roboto, sans-serif;
+    --mdc-dialog-supporting-text-line-height: 1.25rem;
+    --mdc-dialog-supporting-text-size: 0.875rem;
+    --mdc-dialog-supporting-text-weight: 400;
+    --mdc-dialog-supporting-text-tracking: 0.016rem;
+    --mdc-dialog-container-shape: 28px;
+    --mat-dialog-container-elevation-shadow: none;
+    --mat-dialog-container-max-width: 560px;
+    --mat-dialog-container-small-max-width: calc(100vw - 32px);
+    --mat-dialog-container-min-width: 280px;
+    --mat-dialog-actions-alignment: flex-end;
+    --mat-dialog-actions-padding: 16px 24px;
+    --mat-dialog-content-padding: 20px 24px;
+    --mat-dialog-with-actions-content-padding: 20px 24px 0;
+    --mat-dialog-headline-padding: 6px 24px 13px;
+  }
+}

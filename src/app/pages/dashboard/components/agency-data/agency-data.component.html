@@ -1,0 +1,35 @@
+<div class="flex-column justify-content-center">
+  <div
+    style="margin-top: 3%"
+    class="gap-5 d-flex flex-column flex-md-row justify-content-space-between"
+  >
+    <div class="w-100">
+      <span class="ts-6 alternate">Tarefas</span>
+      <div class="rounded-4 surface border-0 shadow-sm card-content">
+        <div class="d-flex justify-content-center card-content-top">
+          <div class="card-infos">
+            <span class="ts-15 gray-600">Quantidade de Tarefas</span>
+            <span class="ts-14 fw-bold alternate">{{ tasksCount ?? 0 }}</span>
+          </div>
+        </div>
+        <button type="button" class="btn bg-accent surface-color w-45 button">
+          Ver Tarefas
+        </button>
+      </div>
+    </div>
+    <div class="w-100">
+      <span class="ts-6 alternate">Usuários</span>
+      <div class="rounded-4 surface border-0 shadow-sm card-content">
+        <div class="d-flex justify-content-center card-content-top">
+          <div class="card-infos">
+            <span class="ts-15 gray-600">Quantidade de Usuários</span>
+            <span class="ts-14 fw-bold alternate">{{ usersCount ?? 0 }}</span>
+          </div>
+        </div>
+        <button type="button" class="btn bg-accent surface-color w-45 button">
+          Ver Usuários
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

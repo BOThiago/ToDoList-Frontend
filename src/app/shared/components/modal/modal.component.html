@@ -1,0 +1,29 @@
+<div
+  *ngIf="isOpen"
+  class="modal-backdrop-color d-flex justify-content-center align-items-center position-fixed z-1000 top-0 end-0 start-0 bottom-0"
+  (click)="close()"
+>
+  <div
+    class="w-100 w-md-50 bg-white px-2 shadow-sm"
+    [style.border-radius.px]="20"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="d-flex justify-content-end align-items-center">
+      <ng-content select=".modal-title"></ng-content>
+      <button
+        class="border-0 bg-transparent color-gray-200"
+        [style.font-size.px]="30"
+        (click)="close()"
+      >
+        <span class="app-span">×</span>
+      </button>
+    </div>
+    <div
+      class="modal-content py-2 d-flex flex-column align-items-center"
+      [style.padding-right.px]="50"
+      [style.padding-left.px]="50"
+    >
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

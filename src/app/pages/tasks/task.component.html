@@ -1,0 +1,101 @@
+<div class="my-2" [style.margin-left.rem]="2.5" [style.margin-right.rem]="2.5">
+  <app-basic-data-table
+    [choice]="newTask"
+    [columns]="displayedColumns"
+    [data]="data"
+    [userList]="usersList"
+  >
+    <div class="ts-4 mt-2">Tarefas</div>
+    <div class="my-2 gap-5 d-flex align-items-stretch w-100">
+      <form
+        class="d-flex flex-column gap-2 w-100"
+        (ngSubmit)="createTask()"
+        #taskForm="ngForm"
+        novalidate
+      >
+        <input
+          class="form-control"
+          [(ngModel)]="newTask.title"
+          placeholder="Title"
+          name="title"
+          required
+          #title="ngModel"
+        />
+        <div *ngIf="title.invalid && title.touched" class="text-danger">
+          Title is required.
+        </div>
+
+        <input
+          class="form-control"
+          [(ngModel)]="newTask.description"
+          placeholder="Description"
+          name="description"
+          required
+          #description="ngModel"
+        />
+        <div
+          *ngIf="description.invalid && description.touched"
+          class="text-danger"
+        >
+          Description is required.
+        </div>
+
+        <input
+          class="form-control"
+          [(ngModel)]="newTask.dueDate"
+          type="date"
+          name="dueDate"
+          required
+          #dueDate="ngModel"
+        />
+        <div *ngIf="dueDate.invalid && dueDate.touched" class="text-danger">
+          Due date is required.
+        </div>
+
+        <select
+          class="form-control"
+          [(ngModel)]="newTask.status"
+          name="status"
+          required
+          #status="ngModel"
+        >
+          <option value="PENDENTE" selected>Pendente</option>
+          <option value="EM_ANDAMENTO">Em andamento</option>
+          <option value="CONCLUIDA">Concluída</option>
+        </select>
+        <div *ngIf="status.invalid && status.touched" class="text-danger">
+          Status is required.
+        </div>
+
+        <select
+          class="form-control"
+          [(ngModel)]="newTask.user.id"
+          name="username"
+          required
+          #username="ngModel"
+        >
+          <option [value]="" selected></option>
+          <option *ngFor="let user of usersList" [value]="user.id">
+            {{ user.username }}
+          </option>
+        </select>
+        <div
+          *ngIf="
+            (username.invalid && username.touched) || username.value === ''
+          "
+          class="text-danger"
+        >
+          User selection is required.
+        </div>
+
+        <button
+          type="submit"
+          class="btn bg-white pointer primary border-1 border-primary primary rounded-pill px-3"
+          [disabled]="taskForm.invalid"
+        >
+          Create Task
+        </button>
+      </form>
+    </div>
+  </app-basic-data-table>
+</div>

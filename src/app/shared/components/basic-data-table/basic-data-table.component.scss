@@ -1,0 +1,14 @@
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: (--surface);
+  z-index: 0;
+}
+
+.scroller {
+  width: 100%;
+  max-height: 45rem;
+  scrollbar-width: thin;
+  scrollbar-arrow-color: var(--accent) !important;
+  scrollbar-color: var(--secondary) var(--background);
+}

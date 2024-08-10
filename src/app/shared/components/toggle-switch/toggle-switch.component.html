@@ -1,0 +1,11 @@
+<div class="form-check form-switch">
+  <input
+    class="form-check-input"
+    [checked]="isChecked"
+    (change)="toggleSwitch()"
+    type="checkbox"
+    role="switch"
+    [id]="inputId"
+  />
+  <label class="form-check-label" [for]="inputId">{{ title }}</label>
+</div>

@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+.ts-1, .ts-2, .ts-3, .ts-4, .ts-5, .ts-6, .ts-7, .ts-8, .ts-9, .ts-10, .ts-11, .ts-13 {
+  -webkit-font-smoothing: antialiased;
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+.ts-12, .ts-14, .ts-15 {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.ts-1, .ts-3, .ts-5, .ts-7, .ts-9, .ts-11, .ts-13, .ts-15 {
+  font-weight: normal;
+}
+.ts-2, .ts-4, .ts-6, .ts-8, .ts-10, .ts-12, .ts-14 {
+  font-weight: 700;
+}
+
+.ts-14 { font-size: 40px; }
+.ts-1, .ts-2 { font-size: 30px; }
+.ts-3, .ts-4 { font-size: 25px; }
+.ts-5, .ts-6 { font-size: 21px; }
+.ts-7, .ts-8 { font-size: 17px; }
+.ts-9 { font-size: 14px; }
+.ts-10, .ts-11, .ts-12, .ts-15 { font-size: 12px; }
+.ts-13 { font-size: 10px; }

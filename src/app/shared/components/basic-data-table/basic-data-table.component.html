@@ -1,0 +1,210 @@
+<div>
+  <div
+    class="d-flex flex-column gap-2 justify-content-between align-items-center pb-4"
+  >
+    <ng-content></ng-content>
+    <div class="d-flex flex-row flex-sm-row justify-content-end gap-2">
+      <div
+        *ngIf="showExportButton"
+        (click)="openExportModal()"
+        class="btn bg-primary surface-color rounded-pill px-3"
+      >
+        Exportar
+      </div>
+      <div
+        *ngIf="showFilterButton"
+        (click)="openModal(filterModal)"
+        class="btn bg-white primary border-1 border-primary primary rounded-pill px-3"
+      >
+        Filtrar
+      </div>
+    </div>
+  </div>
+  <div class="scroller overflow-auto surface rounded-3">
+    <div
+      *ngIf="dataLoadingType == 'loading'; else notLoading"
+      class="d-flex justify-content-center py-4"
+    >
+      <div class="spinner-border primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    <ng-template #notLoading>
+      <div #tableView style="transform: rotateX(180deg)">
+        <table
+          id="table-view"
+          class="rounded-3 shadow-sm"
+          style="transform: rotateX(180deg)"
+          matTableExporter
+          mat-table
+          [dataSource]="dataSource"
+          #exporter="matTableExporter"
+        >
+          <ng-container
+            *ngFor="let column of columns"
+            [matColumnDef]="column.value"
+          >
+            <th
+              class="secondary text-center sticky-header bg-white"
+              mat-header-cell
+              *matHeaderCellDef
+            >
+              {{ column.label ?? column.value }}
+            </th>
+            @switch (column.type) { @case ("date") {
+            <td
+              class="text-center"
+              mat-cell
+              *matCellDef="let row; let index = index"
+            >
+              {{ formatDate(row[column.value], "dd/MM/yyyy", "pt-br") }}
+            </td>
+            } @case ("time") {
+            <td
+              class="text-center"
+              mat-cell
+              *matCellDef="let row; let index = index"
+            >
+              {{ formatDate(row[column.value], "HH:mm", "pt-br") }}
+            </td>
+            } @case ("actions") {
+            <td
+              class="text-center"
+              mat-cell
+              *matCellDef="let row; let index = index"
+            >
+              <div
+                *ngIf="showExportButton"
+                (click)="editChoice(row.id, choice)"
+                class="btn bg-primary surface-color rounded-pill px-2 mx-1"
+              >
+                Editar
+              </div>
+              <div
+                *ngIf="showExportButton"
+                (click)="deleteChoice(row.id)"
+                class="btn bg-primary bg-paused-color text-white rounded-pill px-2 mx-1"
+              >
+                Deletar
+              </div>
+            </td>
+            } @case ("switch") {
+            <td
+              class="text-center"
+              mat-cell
+              *matCellDef="let row; let index = index"
+            >
+              <div class="form-switch px-0">
+                <!-- Mostra só ao exportar -->
+                <span class="cdk-visually-hidden">{{
+                  row[column.value] ? "Sim" : "Não"
+                }}</span>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  [checked]="row[column.value]"
+                />
+              </div>
+            </td>
+            } @case ("user") {
+            <td
+              class="text-center"
+              mat-cell
+              *matCellDef="let row; let index = index"
+            >
+              {{
+                (column.prefix ?? "") +
+                  (row[column.value].username ?? "") +
+                  (column.sulfix ?? "")
+              }}
+            </td>
+            } @default {
+            <td
+              class="text-center"
+              mat-cell
+              *matCellDef="let row; let index = index"
+            >
+              {{
+                (column.prefix ?? "") +
+                  (row[column.value] ?? "") +
+                  (column.sulfix ?? "")
+              }}
+            </td>
+            } }
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="headerValues"></tr>
+          <tr mat-row *matRowDef="let row; columns: headerValues"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell ts-5" [attr.colspan]="headerValues.length">
+              <div class="text-center py-3">Nenhum dado encontrado</div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </ng-template>
+  </div>
+
+  <app-modal [isOpen]="isModalOpen" (closeModal)="closeModal()">
+    <ng-container *ngTemplateOutlet="modalContentTemplate"></ng-container>
+  </app-modal>
+
+  <ng-template #filterModal>
+    <div class="d-flex flex-column gap-2">
+      <p class="text-primary ts-6 text-center">Filtros</p>
+      <div class="d-flex flex-wrap justify-content-between px-2 text-start">
+        <div
+          class="d-flex flex-column gap-2 col-5"
+          *ngFor="let column of columns"
+        >
+          <toggle-switch
+            (onChange)="column.visible = $event"
+            [inputId]="column.value"
+            [title]="column.label || ''"
+            [isChecked]="column.visible !== false"
+          ></toggle-switch>
+        </div>
+      </div>
+
+      <p class="text-primary ts-6 text-center">Status</p>
+      <select
+        class="form-control"
+        name="status"
+        required
+        (change)="filterTasksByStatus($event)"
+      >
+        <option value="PENDENTE">Pendente</option>
+        <option value="EM_ANDAMENTO">Em andamento</option>
+        <option value="CONCLUIDA">Concluída</option>
+      </select>
+
+      <p class="text-primary ts-6 text-center">Username</p>
+      <select
+        class="form-control"
+        (change)="filterByUser($event)"
+        name="username"
+        required
+      >
+        <option [value]="" selected></option>
+        <option *ngFor="let user of userList" [value]="user.id">
+          {{ user.username }}
+        </option>
+      </select>
+
+      <p class="text-primary ts-6 text-center">Data de Vencimento</p>
+      <input
+        class="form-control mb-4"
+        placeholder="Data de Vencimento"
+        (change)="filterTasksByDueDate($event)"
+        type="date"
+        name="dueDate"
+        required
+      />
+
+      <button (click)="closeModal()" class="btn btn-primary rounded-3 mx-2">
+        Filtrar
+      </button>
+    </div>
+  </ng-template>
+</div>
